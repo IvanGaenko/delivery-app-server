@@ -1,8 +1,8 @@
 import pool from "../db/pool";
 
 export const fetchData = async () => {
-  const products = await pool.query("SELECT * FROM products");
-  const coupons = await pool.query("SELECT * FROM coupons");
+  const products = await pool.query("SELECT * FROM products ORDER BY id ASC");
+  const coupons = await pool.query("SELECT * FROM coupons ORDER BY id ASC");
   const result = await pool.query(
     `select json_build_object(
       'id', d.id,
