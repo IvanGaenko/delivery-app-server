@@ -1,9 +1,10 @@
 import pool from "../db/pool";
 
 export const getUserOrders = async (id) => {
-  const orders = await pool.query("SELECT * FROM orders WHERE userid = $1", [
-    id,
-  ]);
+  const orders = await pool.query(
+    "SELECT * FROM orders WHERE userid = $1 ORDER BY id ASC",
+    [id]
+  );
   return orders.rows;
 };
 
@@ -15,16 +16,15 @@ export const getOrderProducts = async (orders) => {
       const currentOrder = orders[i];
 
       const orderToProduct = await pool.query(
-        "SELECT * FROM ordersproducts WHERE orderid = $1",
+        "SELECT * FROM ordersproducts WHERE orderid = $1 ORDER BY id ASC",
         [currentOrder.id]
       );
 
       const products = [];
       if (orderToProduct.rows.length > 0) {
-        console.log("hello");
         for (let j = 0; j < orderToProduct.rows.length; j++) {
           const product = await pool.query(
-            "SELECT * FROM products WHERE id = $1",
+            "SELECT * FROM products WHERE id = $1 ORDER BY id ASC",
             [orderToProduct.rows[j].productid]
           );
 
