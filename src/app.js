@@ -6,7 +6,7 @@ import Cors from "cors";
 import { clientApi } from "./config";
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 const whiteList = [clientApi];
 import apiRouter from "./routes";
 

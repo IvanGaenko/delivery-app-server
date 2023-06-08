@@ -8,6 +8,7 @@ const pool = new Pool({
   database: dbName,
   password: dbPassword,
   port: dbPort,
+  ssl: true,
 });
 
 export default pool;
