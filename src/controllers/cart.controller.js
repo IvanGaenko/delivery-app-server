@@ -11,6 +11,7 @@ export const cartController = async (req, res) => {
     totalprice,
     discount,
     discountprice,
+    address,
     name,
     email,
     phone,
@@ -38,10 +39,12 @@ export const cartController = async (req, res) => {
     discountprice,
     userid: findedUser.id,
     couponid,
+    address,
   });
 
   return res.status(200).json({
     success: true,
     orderid: order.id,
+    address,
   });
 };

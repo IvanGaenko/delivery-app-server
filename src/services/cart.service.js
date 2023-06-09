@@ -24,15 +24,16 @@ export const saveOrderToDatabase = async ({
   discountprice,
   userid,
   couponid,
+  address,
 }) => {
   const order = await pool.query(
-    "INSERT INTO orders (totalprice,discount,discountprice,userid,couponid) values ($1,$2,$3,$4,$5) RETURNING *",
-    [totalprice, discount, discountprice, userid, couponid]
+    "INSERT INTO orders (totalprice,discount,discountprice,userid,couponid,address) values ($1,$2,$3,$4,$5,$6) RETURNING *",
+    [totalprice, discount, discountprice, userid, couponid, address]
   );
 
   for (let i = 0; i < cart.length; i++) {
     await pool.query(
-      "INSERT INTO ordersproducts (orderid,productid,quantity) values ($1,$2,$3) RETURNING *",
+      "INSERT INTO ordersproducts (orderid,productid,quantity) values ($1,$2,$3)",
       [order.rows[0].id, cart[i].product.id, cart[i].quantity]
     );
   }
